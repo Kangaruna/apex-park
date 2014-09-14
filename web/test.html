@@ -1,0 +1,82 @@
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+var catData=[
+	{"name":"Trouble","color":"grey","weight":14},
+	{"name":"Itty Bitty","color":"white","weight":7},
+	{"name":"Shai","color":"black","weight":10},
+	{"name":"Bus","color":"blue","weight":11},
+	{"name":"Motan","color":"orange","weight":12}
+];
+</script>
+</head>
+<body>
+<ul>
+	<li>Cat Names
+		<ul id="cat_names"></ul>
+	</li>
+	<li>Cat Colors
+		<ul id="cat_color"></ul>
+	</li>
+	<li>Cat Weights
+		<ul id="cat_weights"></ul>
+	</li>
+	<li>Combined
+		<ul id="cat_combo"></ul>
+	</li>
+</ul>
+<script type="text/javascript">
+function oldSkool(){
+	var catNames=document.getElementById("cat_names");
+	var catColors=document.getElementById("cat_color");
+	var catWeights=document.getElementById("cat_weights");
+	var catCombo=document.getElementById("cat_combo");
+	for(var i=0;i<catData.length;i++){
+		var cat=catData[i];
+		var li=document.createElement("li");
+		li.innerHTML=cat.name;
+		catNames.appendChild(li);
+		li=document.createElement("li");
+		li.innerHTML=cat.name+" --> "+cat.color;
+		catColors.appendChild(li);
+		li=document.createElement("li");
+		li.innerHTML=cat.name+" --> "+cat.weight;
+		catWeights.appendChild(li);
+		li=document.createElement("li");
+		li.style.backgroundColor=cat.color;
+		if(cat.color==='black'){
+			li.style.color="white";
+		} else if(cat.color==='white'){
+			li.style.borderColor='grey';
+			li.style.borderStyle='solid';
+			li.style.borderWidth='1px';
+		}
+		li.style.width=(cat.weight*10)+"px";
+		li.innerHTML=cat.name;
+		catCombo.appendChild(li);
+	};
+}
+//oldSkool();
+function jQueryWay(){
+	var catNames=$("#cat_names");
+	var catColors=$("#cat_color");
+	var catWeights=$("#cat_weights");
+	var catCombo=$("#cat_combo");
+	$.each(catData,function(index,cat){
+		catNames.append("<li>"+cat.name+"</li>");
+		catColors.append("<li>"+cat.name+" --> "+cat.color+"</li>");
+		catWeights.append("<li>"+cat.name+" --> "+cat.weight+"</li>");
+		if(cat.color==="black"){
+			catCombo.append("<li style='width:"+(cat.weight*10)+"px; background-color:black; color:white'>"+cat.name+"</li>");
+		}else if(cat.color==="white"){
+			catCombo.append("<li style='width:"+(cat.weight*10)+"px; border:solid 1px grey; background-color:white'>"+cat.name+"</li>");
+		}else{
+			catCombo.append("<li style='width:"+(cat.weight*10)+"px; background-color:"+cat.color+"'>"+cat.name+"</li>");
+		}
+	});
+}
+jQueryWay();
+</script>
+</body>
+</html>
